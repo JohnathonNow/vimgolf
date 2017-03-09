@@ -1,0 +1,48 @@
+<script src="jquery-3.1.1.min.js"> </script>
+<script>
+var gCtrl = false;
+function submit(e) {
+    console.log("K");
+    $.ajax({
+        type: 'POST',
+        url: 'localhost:8080/',
+        crossDomain: false,
+        data: '{"some":"json"}',
+        dataType: 'json',
+        success: function(responseData, textStatus, jqXHR) {
+                    alert(responseData);
+                },
+        error: function (responseData, textStatus, errorThrown) {
+                    alert('POST failed: ' + errorThrown);
+                }
+    });
+}
+function down(event){
+    console.log(event.key);
+    switch (event.key) {
+        case "Control": gCtrl = true; break;
+        case "Escape": $("#word").val($("#word").val() + "\\<esc>"); break;
+        default: if (gCtrl) 
+            $("#word").val($("#word").val() + "\\<c-"+event.key+">"); 
+        break;
+
+    }
+}
+function up(event){
+    if (event.key=="Control") gCtrl = false;
+}
+window.addEventListener("keydown",function (e) {
+    console.log(e);
+    if (e.keyCode === 112 || e.ctrlKey) { 
+        e.preventDefault();
+    }
+});
+</script>
+<form action="http://localhost:8080/" method="post">
+  Word:<br>
+  <input type="textarea" name="word" id="word" onkeyup="up(event);"
+  onkeydown="down(event);"><br>
+  <input type="submit" value="Submit">
+</form>
+<button onclick="submit();">K</button>
+
