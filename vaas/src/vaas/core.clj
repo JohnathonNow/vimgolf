@@ -11,10 +11,11 @@
   (let [reply {:status 200
                :headers {"content-type" "text/html"}
                :body "hello!"}]
-    (println (first (str/split (slurp(:body req)) #"\&")))
     (case (:uri req) 
-      "/"  (assoc reply :body "<b>HI!</b>")
-      "/k" (assoc reply :body "<b>k</b>")
+      "/"  (assoc reply :body (slurp "../frontend/index.html"))
+      "/jquery.js" (assoc reply :body (slurp "../frontend/jquery.js"))
+      "/k"     (do (println (slurp(:body req)))
+               (assoc reply :body "{\"status\": \"success\"}"))
     )
   )
 )
