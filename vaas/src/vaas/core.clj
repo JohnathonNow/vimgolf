@@ -1,9 +1,12 @@
 (ns vaas.core
   (:gen-class)
+  (:require [clojure.data.json :as json])
 )
 
 (require '[aleph.http :as http])
 (require '[clojure.string :as str])
+(use '[clojure.java.shell :only [sh]])
+
 
 
 (defn handler [req]
@@ -12,10 +15,23 @@
                :headers {"content-type" "text/html"}
                :body "hello!"}]
     (case (:uri req) 
-      "/"  (assoc reply :body (slurp "../frontend/index.html"))
-      "/jquery.js" (assoc reply :body (slurp "../frontend/jquery.js"))
-      "/k"     (do (println (slurp(:body req)))
-               (assoc reply :body "{\"status\": \"success\"}"))
+      "/"  (assoc reply :body (slurp "resources/index.html"))
+      "/jquery.js" (assoc reply :body (slurp "resources/jquery.js"))
+      "/k" (let [reqbod (json/read-str (slurp (:body req)))]
+             (let [in (get reqbod "document" "SERVER ERROR")
+                 cmd (get reqbod "command" "")]
+             (do 
+                 (println cmd)
+                 (println in)
+               (assoc reply :body
+                 (json/write-str {
+                   :document (:out (sh "docker" "run" "-a" "stdin" 
+                                       "-a" "stdout" "-i" "test" "--rm"
+                                       :in (str cmd "\n" in)))
+                   :status "success"
+                   }))
+             )
+           ))
     )
   )
 )

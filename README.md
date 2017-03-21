@@ -3,7 +3,7 @@ Project 2 for Hackers: Vim Golf, written in Clojure
 
 ## To do:
 
-- [ ] Vim as a Service
+- [x] Vim as a Service
 - [ ] vimgolf frontend
 - [ ] vimgolf backend
 
