@@ -25,8 +25,8 @@
                  (println in)
                (assoc reply :body
                  (json/write-str {
-                   :document (:out (sh "docker" "run" "-a" "stdin" 
-                                       "-a" "stdout" "-i" "test" "--rm"
+                   :document (:out (sh "docker" "run" "--rm" "-a" "stdin" 
+                                       "-a" "stdout" "-i" "test"
                                        :in (str cmd "\n" in)))
                    :status "success"
                    }))

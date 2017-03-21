@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [aleph "0.4.2-alpha6"]
+                 [org.clojure/data.json "0.2.6"]
                  ]
   :main ^:skip-aot vaas.core
   :target-path "target/%s"
