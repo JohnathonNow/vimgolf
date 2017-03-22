@@ -1,6 +1,9 @@
+var wellStart = document.getElementById("wellStart")
+var wellEnd = document.getElementById("wellEnd")
+
 var Item = {
-    addToDocument:function(){
-        document.body.appendChild(this.item);
+    addToDocument:function(well){
+        well.appendChild(this.item);
     }
 }
 var CodePanel = {
@@ -13,10 +16,10 @@ var CodePanel = {
 }
 CodePanel.__proto__ = Item;
 CodePanel.createCode("this will be a well with start code", "holeStart");
-CodePanel.addToDocument();
+CodePanel.addToDocument(wellStart);
 
 CodePanel.createCode("this will be a well with end code", "holeEnd");
-CodePanel.addToDocument();
+CodePanel.addToDocument(wellEnd);
 
 window.changeCode = function(e){
     if(e.value=="hole1"){
@@ -46,3 +49,4 @@ function populatePre(id, url) {
     xhr.open('GET', url);
     xhr.send();
 }
+

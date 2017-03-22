@@ -45,10 +45,11 @@ window.addEventListener("keydown",function (e) {
 
 <html>
 	<head>
-		<link rel="stylesheet" href="dropdown.css">
+		<link rel="stylesheet" href="/static/bootstrap.css">
 	</head>
 
 	<body>
+	<div class="container">
 		<form action="http://localhost:8080/" method="post">
 		  Word:<br>
 		  <input type="textarea" name="word" id="word" onkeyup="up(event);"
@@ -58,7 +59,6 @@ window.addEventListener("keydown",function (e) {
 		<button onclick="submit();">K</button>
 
 		<br>
-		<script type="text/javascript" src="code.js"></script>
 		<br>
 		<select name = "holeOp" onchange="changeCode(this);"> 
 			<option selected = "selected">Select a Hole</option>
@@ -69,5 +69,13 @@ window.addEventListener("keydown",function (e) {
 		</select>
 		<br>
 
+		<br>
+		<div id="wellStart" class="well-sm"></div>
+		
+		<div id="wellEnd" class="well-sm"></div>
+		<br>
+		<script type="text/javascript" src="code.js"></script>
+
+	</div>
 	</body>
 </html>
