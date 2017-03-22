@@ -8,7 +8,8 @@
   (let [command (read-line)
         document (slurp *in*)]
     (spit "j.txt" document)
-    (sh "vim" "j.txt" "-c" (str "execute \"normal! " command "\""))
+    (sh "vim" "j.txt" "-c" (str "execute \"normal! " 
+                                command "\\<esc>:wq!\\<cr>\""))
     (print (slurp "j.txt"))
     (flush)
     (System/exit 0)
