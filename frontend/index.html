@@ -1,3 +1,4 @@
+
 <script src="jquery.js"> </script>
 <script>
 var gCtrl = false;
@@ -41,11 +42,32 @@ window.addEventListener("keydown",function (e) {
     }
 });
 </script>
-<form action="http://localhost:8080/" method="post">
-  Word:<br>
-  <input type="textarea" name="word" id="word" onkeyup="up(event);"
-  onkeydown="down(event);"><br>
-  <input type="submit" value="Submit">
-</form>
-<button onclick="submit();">K</button>
 
+<html>
+	<head>
+		<link rel="stylesheet" href="dropdown.css">
+	</head>
+
+	<body>
+		<form action="http://localhost:8080/" method="post">
+		  Word:<br>
+		  <input type="textarea" name="word" id="word" onkeyup="up(event);"
+		  onkeydown="down(event);"><br>
+		  <input type="submit" value="Submit">
+		</form>
+		<button onclick="submit();">K</button>
+
+		<br>
+		<script type="text/javascript" src="code.js"></script>
+		<br>
+		<select name = "holeOp" onchange="changeCode(this);"> 
+			<option selected = "selected">Select a Hole</option>
+			<option value = "hole1">Hole 1</option>
+			<option value = "hole2">Hole 2</option>
+			<option value = "hole3">Hole 3</option>
+			<option value = "hole4">Hole 4</option>
+		</select>
+		<br>
+
+	</body>
+</html>
