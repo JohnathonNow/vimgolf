@@ -2,6 +2,8 @@
   (:gen-class))
 (require '[aleph.http :as http])
 (require '[clojure.string :as str])
+(require '[manifold.deferred :as d])
+(require '[byte-streams :as bs])
 
 ;; replaces the special keystrokes, like \\<esc>, with the letter E
 ;; returns count of keystrokes in the argument 'string'
@@ -27,6 +29,8 @@
       "/static/bootstrap.css" (assoc reply :body (slurp "../static/bootstrap.css"))
       "/k"     (do (println (slurp(:body req)))
                (assoc reply :body "{\"status\": \"success\"}"))
+      "/o"     (assoc reply :body
+                  (-> @(http/get "https://google.com/") :body bs/to-string))
       ;default
             (do  
               (if (or 
