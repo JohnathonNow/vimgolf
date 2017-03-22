@@ -25,8 +25,7 @@
       "/"  (assoc reply :body (slurp "../frontend/index.html"))
       "/jquery.js" (assoc reply :body (slurp "../frontend/jquery.js"))
       "/code.js" (assoc reply :body (slurp "../frontend/code.js"))
-      "/dropdown.css" (assoc reply :body (slurp "../static/dropdown.css"))
-      "/static/bootstrap.css" (assoc reply :body (slurp "../static/bootstrap.css"))
+      "/static/bootstrap.css" (assoc reply :body (slurp "../static/css/bootstrap.css"))
       "/k"     (do (println (slurp(:body req)))
                (assoc reply :body "{\"status\": \"success\"}"))
       "/o"     (assoc reply :body
