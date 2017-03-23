@@ -5833,7 +5833,7 @@ button.list-group-item-danger.active:focus {
 .well {
   height: 500px !important;
   overflow-y: auto;
-  overflow-x: scroll;
+  overflow-x: hidden;
   padding: 19px;
   margin-bottom: 20px;
   background-color: #f5f5f5;

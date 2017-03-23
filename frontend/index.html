@@ -1,4 +1,4 @@
-
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css"></script>
 <script src="jquery.js"> </script>
 <script>
 var gCtrl = false;
@@ -46,6 +46,10 @@ window.addEventListener("keydown",function (e) {
 <html>
 	<head>
 		<link rel="stylesheet" href="/static/bootstrap.css">
+        <style>
+            .prettyprint ol.linenums > li { list-style-type: decimal; }
+            pre.prettyprint { border: none; }
+        </style>  
 	</head>
 
 	<body>
@@ -76,14 +80,14 @@ window.addEventListener("keydown",function (e) {
 		<br>
 		<div class="col-md-6">
 			<div class="well">
-				<div id="wellStart"></div>
+				<div id="wellStart" class="prettyprint linenums"></div>
 			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="well">
 				<div id="wellEnd"></div>
 			</div>
-		</div>
+        </div>
 		<br>
 		<script type="text/javascript" src="code.js"></script>
 

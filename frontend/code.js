@@ -10,6 +10,8 @@ var CodePanel = {
     createCode:function(text, id){
         this.item = document.createElement("pre");
         this.item.setAttribute("id", id);
+        this.item.setAttribute("class", "prettyprint linenums");
+        this.item.setAttribute("onload", "PR.prettyPrint();");
         var codeText = document.createTextNode(text);
         this.item.appendChild(codeText)
     }
@@ -45,6 +47,8 @@ function populatePre(id, url) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
         document.getElementById(id).textContent = this.responseText;
+        document.getElementById(id).setAttribute("class", "prettyprint linenums");
+        PR.prettyPrint();
     };
     xhr.open('GET', url);
     xhr.send();
