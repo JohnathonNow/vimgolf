@@ -1563,13 +1563,19 @@ kbd kbd {
   text-align: center;
   text-shadow: 0 1px 0 rgba(0,0,0,.1);
   background-color: #3a8746;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#32773d), to(#3a8746));
-  background-image: -webkit-linear-gradient(top, #32773d 0%, #3a8746 100%);
-  background-image:      -o-linear-gradient(top, #32773d 0%, #3a8746 100%);
-  background-image:         linear-gradient(to bottom, #32773d 0%, #3a8746 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#32773d', endColorstr='#3a8746', GradientType=0);
   background-repeat: repeat-x;
 }
+.bs-docs-header h1{
+	font-size: 60px;
+}
+.bs-docs-header p{
+	margin-bottom: 0;
+    font-weight: 500;
+    line-height: 1.4;
+	font-size: 17px;
+	color: #c3dbc7;
+}
+
 pre {
   display: block;
   padding: 9.5px;
