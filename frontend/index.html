@@ -66,26 +66,35 @@ function loaded(pants) {
     });
 }
 
+function atcursor(txt) {
+	var t = $("#word");
+        var caretPos = t[0].selectionStart;
+        var old = t.val();
+        t.val(old.substring(0, caretPos) + txt + old.substring(caretPos) );
+}
+
 function down(event){
     console.log(event.key);
     switch (event.key) {
         case "Control": gCtrl = true; break;
-        case "Escape": $("#word").val($("#word").val() + "\\<esc>"); break;
-        case "Enter":  $("#word").val($("#word").val() + "\\<cr>"); break;
-        case "\\":     $("#word").val($("#word").val() + "\\"); break;
-        case "\"":     $("#word").val($("#word").val() + "\\"); break;
+        case "Escape": atcursor("\\<esc>"); break;
+        case "Enter":  atcursor("\\<cr>"); break;
+        case "Tab":    atcursor("\\<tab>"); break;
+        case "\\":     atcursor("\\"); break;
+        case "\"":     atcursor("\\"); break;
         default: if (gCtrl) 
             $("#word").val($("#word").val() + "\\<c-"+event.key+">"); 
         break;
 
     }
+	return true;
 }
 function up(event){
     if (event.key=="Control") gCtrl = false;
 }
 window.addEventListener("keydown",function (e) {
     console.log(e);
-    if (e.keyCode === 112 || e.ctrlKey) { 
+    if (e.keyCode === 112 || e.ctrlKey || e.keyCode == 9 || e.keyCode == 13) { 
         e.preventDefault();
     }
 });
