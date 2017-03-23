@@ -32,13 +32,14 @@ function submit(e) {
   					document.getElementById(hid).setAttribute("class", "prettyprint linenums");
 					PR.prettyPrint();
                     loaded(null);
+
+					$("#scorediv").html(responseData.score);
+
                 },
         error: function (responseData, textStatus, errorThrown) {
                     alert('POST failed: ' + errorThrown + textStatus);
                 }
     });
-	
-
 }
 
 function loaded(pants) {
@@ -147,6 +148,10 @@ window.addEventListener("keydown",function (e) {
 		<br>
 		<h4><span class="label label-success">High Score</span></h4>
 		<div id="hsdiv"></div>
+
+		<br>
+		<h4><span class="label label-info">Your Score</span></h4>
+		<div id="scorediv"></div>
         </div>
 
 		<div class="col-md-6">
