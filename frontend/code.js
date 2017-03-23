@@ -23,23 +23,31 @@ CodePanel.addToDocument(wellStart);
 CodePanel.createCode("After running your Vim commands, the resulting text file\nmust match the text in this well.", "holeEnd");
 CodePanel.addToDocument(wellEnd);
 
+CodePanel.createCode("Your changed text file will be displayed in this well.", "holeUser");
+CodePanel.addToDocument(wellUser);
+
+
 window.changeCode = function(e){
     if(e.value=="hole1"){
         //code1.textContent = "Hole 1 eventually..."
 		populatePre('holeStart', '/start/h1');
 		populatePre('holeEnd', '/end/h1');
+		populatePre('holeUser', '/static/usrmsg.txt');
     }
     else if(e.value=="hole2"){
 		populatePre('holeStart', '/start/h2');
 		populatePre('holeEnd', '/end/h2');
+		populatePre('holeUser', '/static/usrmsg.txt');
     }
     else if(e.value == "hole3"){
 		populatePre('holeStart', '/start/h3');
 		populatePre('holeEnd', '/end/h3');
+		populatePre('holeUser', '/static/usrmsg.txt');
     }
     else if(e.value == "hole4"){
 		populatePre('holeStart', '/start/h4');
 		populatePre('holeEnd', '/end/h4');
+		populatePre('holeUser', '/static/usrmsg.txt');
     }
 }
 

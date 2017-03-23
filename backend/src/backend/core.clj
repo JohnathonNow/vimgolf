@@ -43,6 +43,7 @@
       "/jquery.js" (assoc reply :body (slurp "../frontend/jquery.js"))
       "/code.js" (assoc reply :body (slurp "../frontend/code.js"))
       "/static/bootstrap.css" (assoc reply :body (slurp "../static/css/bootstrap.css"))
+      "/static/usrmsg.txt" (assoc reply :body (slurp "../static/txt/usrmsg.txt"))
       "/static/vimlogo.jpg" (assoc (assoc reply :body (slurp-bytes "../static/img/vimlogo.png")) :headers {"content-type" "image/png"})
       "/static/syntaxhighlighter.js" (assoc reply :body (slurp "../static/js/syntaxhighlighter.js"))
       "/k"     (do (println (slurp(:body req)))

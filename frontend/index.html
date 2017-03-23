@@ -16,12 +16,18 @@ function submit(e) {
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         success: function(responseData, textStatus, jqXHR) {
-                    alert(JSON.stringify(responseData));
+                    //alert(JSON.stringify(responseData));
+					var hid = "holeUser"
+					document.getElementById(hid).textContent = responseData.document 
+  					document.getElementById(hid).setAttribute("class", "prettyprint linenums");
+					PR.prettyPrint();
                 },
         error: function (responseData, textStatus, errorThrown) {
                     alert('POST failed: ' + errorThrown + textStatus);
                 }
     });
+	
+
 }
 function down(event){
     console.log(event.key);
@@ -81,12 +87,17 @@ window.addEventListener("keydown",function (e) {
 		<br>
 		<div class="col-md-6">
 			<div class="well">
-				<div id="wellStart" class="prettyprint linenums"></div>
+				<div id="wellStart"></div>
 			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="well">
 				<div id="wellEnd"></div>
+			</div>
+        </div>
+		<div class="col-md-6">
+			<div class="well">
+				<div id="wellUser"></div>
 			</div>
         </div>
 		<br>
