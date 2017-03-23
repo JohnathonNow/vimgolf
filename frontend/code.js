@@ -8,17 +8,17 @@ var Item = {
 }
 var CodePanel = {
     createCode:function(text, id){
-        this.item = document.createElement("PRE");
+        this.item = document.createElement("pre");
         this.item.setAttribute("id", id);
         var codeText = document.createTextNode(text);
         this.item.appendChild(codeText)
     }
 }
 CodePanel.__proto__ = Item;
-CodePanel.createCode("this will be a well with start code", "holeStart");
+CodePanel.createCode("This well is the original text file that you must make\nchanges to using Vim commands.", "holeStart");
 CodePanel.addToDocument(wellStart);
 
-CodePanel.createCode("this will be a well with end code", "holeEnd");
+CodePanel.createCode("After running your Vim commands, the resulting text file\nmust match the text in this well.", "holeEnd");
 CodePanel.addToDocument(wellEnd);
 
 window.changeCode = function(e){
