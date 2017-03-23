@@ -10,7 +10,7 @@
     (spit "j.txt" document)
     (sh "vim" "j.txt" "-c"
       (str "execute \"normal! " command "\"")
-      "-c" "\\<esc>:wq!\\<cr>\""))
+      "-c" "\\<esc>:wq!\\<cr>\"")
     (print (slurp "j.txt"))
     (flush)
     (System/exit 0)
