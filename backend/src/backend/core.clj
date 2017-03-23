@@ -25,6 +25,12 @@
       (str/replace 
         (str/replace string #"\\<\S{0,4}>" "E") #"\\\\" "S"))))
 
+(defn slurp-bytes
+  "Slurp the bytes from a slurpable thing"
+  [x]
+  (with-open [out (java.io.ByteArrayOutputStream.)]
+    (clojure.java.io/copy (clojure.java.io/input-stream x) out)
+    (.toByteArray out)))
 
 (defn handler 
   [req]
@@ -36,7 +42,9 @@
       "/"  (assoc reply :body (slurp "../frontend/index.html"))
       "/jquery.js" (assoc reply :body (slurp "../frontend/jquery.js"))
       "/code.js" (assoc reply :body (slurp "../frontend/code.js"))
-      "/dropdown.css" (assoc reply :body (slurp "../frontend/dropdown.css"))
+      "/static/bootstrap.css" (assoc reply :body (slurp "../static/css/bootstrap.css"))
+      "/static/vimlogo.jpg" (assoc (assoc reply :body (slurp-bytes "../static/img/vimlogo.png")) :headers {"content-type" "image/png"})
+      "/static/syntaxhighlighter.js" (assoc reply :body (slurp "../static/js/syntaxhighlighter.js"))
       "/k"     (do (println (slurp(:body req)))
                (assoc reply :body "{\"status\": \"success\"}"))
       "/hs"    reply
