@@ -80,7 +80,8 @@
                                (assoc! (nth state (- hole 1)) :name  user)
                                (assoc! (nth state (- hole 1)) :score score)
                                (assoc reply :body (json/write-str result))
-                          ))
+                          )
+                               (assoc reply :body (json/write-str result)))
                          (assoc reply :body (json/write-str
                            (assoc result "status" "failure"))))
                       )))
