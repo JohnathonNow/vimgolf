@@ -39,5 +39,5 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (.wait-for-close (http/start-server handler {:port 8080}))
+  (.wait-for-close (http/start-server handler {:port 9090}))
 )

@@ -1,9 +1,20 @@
 (ns backend.core
-  (:gen-class))
+  (:gen-class)
+  (:require [clojure.data.json :as json]))
 (require '[aleph.http :as http])
 (require '[clojure.string :as str])
 (require '[manifold.deferred :as d])
 (require '[byte-streams :as bs])
+
+(def VaaSURL  "http://localhost:9090/k")
+
+(defmacro against-all-charles-holds-dear [l] 
+  (into [] 
+    (for [i l] (list 'transient i))))
+
+(def state (against-all-charles-holds-dear
+           [{:name "null" :score 999} {:name "null" :score 999}
+            {:name "null" :score 999} {:name "null" :score 999}]))
 
 ;; replaces the special keystrokes, like \\<esc>, with the letter E
 ;; returns count of keystrokes in the argument 'string'
@@ -28,8 +39,35 @@
       "/dropdown.css" (assoc reply :body (slurp "../frontend/dropdown.css"))
       "/k"     (do (println (slurp(:body req)))
                (assoc reply :body "{\"status\": \"success\"}"))
-      "/o"     (assoc reply :body
-                  (-> @(http/get "https://google.com/") :body bs/to-string))
+      "/hs"    reply
+      "/sub"   (do  ; for sub we have to get the user input
+                    ; score it, send it to VaaS,
+                    ; compare the results to what is right
+                    ; etc
+                  (let [in (json/read-str (slurp (:body req))) ]
+                    (let [score (count-keystrokes (get in "cmd"))
+                          hole  (get in "hole")
+                          user  (get in "name")
+                          cmd   (get in "cmd")
+                          result (assoc (json/read-str (-> @(http/post VaaSURL
+                            {:body (json/write-str
+                               {:document (slurp 
+                                  (str "../holes/start/h" hole ".txt"))
+                                :command cmd})
+                            }) :body bs/to-string))
+                           :score score)]
+                      (if (= 0 (compare 
+                        (slurp (str "../holes/end/h" hole ".txt"))
+                        (get result "document")))
+                          (if (< score (:score (nth state (- hole 1))))
+                             (do
+                               (assoc! (nth state (- hole 1)) :name  user)
+                               (assoc! (nth state (- hole 1)) :score score)
+                               (assoc reply :body (json/write-str result))
+                          ))
+                         (assoc reply :body (json/write-str
+                           (assoc result "status" "failure"))))
+                      )))
       ;default
             (do  
               (if (or 
@@ -44,6 +82,8 @@
 
 (defn -main
   [& args]
+  (assoc! (nth state 0) :name "john")
+  (println (:name (nth state 0)))
   (.wait-for-close (http/start-server handler {:port 8080}))
   ;(println (count-keystrokes (first args))))
 )
