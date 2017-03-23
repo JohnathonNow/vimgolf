@@ -3,18 +3,20 @@
 <script>
 var gCtrl = false;
 function submit(e) {
-    console.log("K");
+    console.log(parseInt($("#breezy_t").val().substring(4)));
     var data = {
-        "some": "json"
+        "name": "jeff",
+        "hole": parseInt($("#breezy_t").val().substring(4)),
+        "cmd":  $("#word").val()
     };
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/k',
-        data: data,
+        url: 'http://localhost:8080/sub',
+        data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         success: function(responseData, textStatus, jqXHR) {
-                    alert(responseData.status);
+                    alert(JSON.stringify(responseData));
                 },
         error: function (responseData, textStatus, errorThrown) {
                     alert('POST failed: ' + errorThrown + textStatus);
@@ -62,13 +64,12 @@ window.addEventListener("keydown",function (e) {
 		  Word:<br>
 		  <input type="textarea" name="word" id="word" onkeyup="up(event);"
 		  onkeydown="down(event);"><br>
-		  <input type="submit" value="Submit">
 		</form>
-		<button onclick="submit();">K</button>
+		<button onclick="submit();">Submit</button>
 
 		<br>
 		<br>
-		<select name = "holeOp" onchange="changeCode(this);"> 
+		<select name = "holeOp" id="breezy_t" onchange="changeCode(this);"> 
 			<option selected = "selected">Select a Hole</option>
 			<option value = "hole1">Hole 1</option>
 			<option value = "hole2">Hole 2</option>
