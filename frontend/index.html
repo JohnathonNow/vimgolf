@@ -33,7 +33,8 @@ function submit(e) {
 					PR.prettyPrint();
                     loaded(null);
 
-					$("#scorediv").html(responseData.score);
+					var usr_score = responseData.score + " - " + responseData.status
+					$("#scorediv").html(usr_score);
 
                 },
         error: function (responseData, textStatus, errorThrown) {
