@@ -50,10 +50,12 @@
                (assoc reply :body "{\"status\": \"success\"}"))
       "/hs"    (do 
                   (let [in (json/read-str (slurp (:body req))) ]
-                  (let [hole (get in "hole")]
+                  (let [hole (get in "hole")
+                        entry (get state (- hole 1))]
                     (assoc reply :body 
                            (json/write-str {:status "success" :hs 
-                                            (persistent! (get state (- hole 1)))})))))
+                                            {"name" (:name entry)
+                                             "score" (:score entry)}})))))
       "/sub"   (do  ; for sub we have to get the user input
                     ; score it, send it to VaaS,
                     ; compare the results to what is right

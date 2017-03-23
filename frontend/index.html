@@ -3,7 +3,17 @@
 <script>
 var gCtrl = false;
 function submit(e) {
-    console.log(parseInt($("#breezy_t").val().substring(4)));
+    //console.log(parseInt($("#breezy_t").val().substring(4)));
+
+	if ($("#breezy_t").val() == "Select a Hole"){
+		alert("You gotta select a hole.");
+		return;
+	}
+	if ($("#word").val().length == 0 || $("#usr").val().length == 0){
+		alert("Both fields are required you emacs user.");
+		return;
+	}
+
     var data = {
         "name": "jeff",
         "hole": parseInt($("#breezy_t").val().substring(4)),
@@ -29,6 +39,30 @@ function submit(e) {
 	
 
 }
+
+function loaded(pants) {
+	if ($("#breezy_t").val() == "Select a Hole"){
+		return;
+	}
+    var data = {
+        "hole": parseInt($("#breezy_t").val().substring(4)),
+    };
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:8080/hs',
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function(responseData, textStatus, jqXHR) {
+                    //alert(JSON.stringify(responseData));
+					$("#hsdiv").html(responseData.hs.name + " - " + responseData.hs.score);
+                },
+        error: function (responseData, textStatus, errorThrown) {
+                    alert('POST failed: ' + errorThrown + textStatus);
+                }
+    });
+}
+
 function down(event){
     console.log(event.key);
     switch (event.key) {
@@ -73,7 +107,7 @@ window.addEventListener("keydown",function (e) {
 
 		<br>
 		<br>
-		<select name = "holeOp" id="breezy_t" onchange="changeCode(this);"> 
+		<select name = "holeOp" id="breezy_t" onchange="changeCode(this); loaded(this);"> 
 			<option selected = "selected">Select a Hole</option>
 			<option value = "hole1">Hole 1</option>
 			<option value = "hole2">Hole 2</option>
@@ -96,12 +130,20 @@ window.addEventListener("keydown",function (e) {
         </div>
 
 		<div class="col-md-6">
-			<form action="http://localhost:8080/" method="post">
-			  Command:<br>
-			  <input type="textarea" name="word" id="word" onkeyup="up(event);"
-			  onkeydown="down(event);"><br>
-			</form>
-			<button onclick="submit();">Submit</button>
+		  Command:<br>
+		  <input type="textarea" name="word" id="word" onkeyup="up(event);"
+		  onkeydown="down(event);"><br>
+
+		  Username:<br>
+		  <input type="textarea" name="usr" id="usr" onkeyup="up(event);"
+		  onkeydown="down(event);"><br>
+		  <br>
+		<button onclick="submit();">Submit</button>
+
+		<br>
+		<br>
+		<h4><span class="label label-success">High Score</span></h4>
+		<div id="hsdiv"></div>
         </div>
 
 		<div class="col-md-6">
