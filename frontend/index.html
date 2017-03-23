@@ -73,6 +73,7 @@ function down(event){
         case "Escape": $("#word").val($("#word").val() + "\\<esc>"); break;
         case "Enter":  $("#word").val($("#word").val() + "\\<cr>"); break;
         case "\\":     $("#word").val($("#word").val() + "\\"); break;
+        case "\"":     $("#word").val($("#word").val() + "\\"); break;
         default: if (gCtrl) 
             $("#word").val($("#word").val() + "\\<c-"+event.key+">"); 
         break;
