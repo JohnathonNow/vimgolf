@@ -15,13 +15,13 @@ function submit(e) {
 	}
 
     var data = {
-        "name": "jeff",
+        "name": $("#usr").val(),
         "hole": parseInt($("#breezy_t").val().substring(4)),
         "cmd":  $("#word").val()
     };
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/sub',
+        url: 'http://cse-power-couple.irish/sub',
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
@@ -31,6 +31,7 @@ function submit(e) {
 					document.getElementById(hid).textContent = responseData.document 
   					document.getElementById(hid).setAttribute("class", "prettyprint linenums");
 					PR.prettyPrint();
+                    loaded(null);
                 },
         error: function (responseData, textStatus, errorThrown) {
                     alert('POST failed: ' + errorThrown + textStatus);
@@ -49,7 +50,7 @@ function loaded(pants) {
     };
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/hs',
+        url: 'http://cse-power-couple.irish/hs',
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         dataType: 'json',

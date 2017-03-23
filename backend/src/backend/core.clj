@@ -6,7 +6,7 @@
 (require '[manifold.deferred :as d])
 (require '[byte-streams :as bs])
 
-(def VaaSURL  "http://localhost:9090/k")
+(def VaaSURL  "http://cse-power-couple.irish:9090/k")
 
 (defmacro against-all-charles-holds-dear [l] 
   (into [] 
@@ -100,6 +100,6 @@
   [& args]
   (assoc! (nth state 0) :name "john")
   (println (:name (nth state 0)))
-  (.wait-for-close (http/start-server handler {:port 8080}))
+  (.wait-for-close (http/start-server handler {:port 80}))
   ;(println (count-keystrokes (first args))))
 )
