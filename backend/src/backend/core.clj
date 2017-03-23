@@ -47,7 +47,12 @@
       "/static/syntaxhighlighter.js" (assoc reply :body (slurp "../static/js/syntaxhighlighter.js"))
       "/k"     (do (println (slurp(:body req)))
                (assoc reply :body "{\"status\": \"success\"}"))
-      "/hs"    reply
+      "/hs"    (do 
+                  (let [in (json/read-str (slurp (:body req))) ]
+                  (let [hole (get in "hole")]
+                    (assoc reply :body 
+                           (json/write-str {:status "success" :hs 
+                                            (persistent! (get state (- hole 1)))})))))
       "/sub"   (do  ; for sub we have to get the user input
                     ; score it, send it to VaaS,
                     ; compare the results to what is right
